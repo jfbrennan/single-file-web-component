@@ -17,7 +17,7 @@ SFWC files are named like `<tag-name>.html` and the basic structure is:
 ## Utils
 [`bindTemplateEvents(element)`](./bind-template-events.js) Replaces descendents' `onevent` attributes with an event listener of the same type. 
 
-[`getTemplateRefs(element)`](./get-template-refs.js) Finds all elements with id attribute.
+[`getTemplateRefs(element)`](./get-template-refs.js) A Proxy object that finds all descendents with an id and caches them on the returned object.
 
 ## Examples
 The [country search component](./x-countries.html) demonstrates fetching data and rendering it in a searchable and sortable table.
