@@ -1,0 +1,157 @@
+<sfwc>
+  <template>
+    <m-box>
+      <fieldset>
+        <label for="search">Type to filter</label>
+        <input onkeyup="searchCountries" id="search" type="text" autofocus>
+      </fieldset>
+      <p><span id="countriesCount" class="fnt-bold">--</span> countries</p>
+      <table id="countriesTable">
+        <thead>
+        <tr>
+          <th aria-sort="ascending">
+            <button onclick="sortCountries" name="common" aria-pressed="true">Name</button>
+          </th>
+          <th aria-sort="none">
+            <button onclick="sortCountries" name="official">Official name</button>
+          </th>
+          <th>Flag</th>
+        </tr>
+        </thead>
+        <tbody id="loading" hidden>
+          <tr>
+            <td colspan="3">
+              <m-loader loading>Loading...</m-loader>
+            </td>
+          </tr>
+        </tbody>
+        <tbody id="results" hidden></tbody>
+        <tbody id="noresults" hidden>
+          <tr>
+            <td colspan="3">
+              <div class="txt-center fnt-italic">No matches</div>
+            </td>
+          </tr>
+        </tbody>
+<!--        <tbody>-->
+<!--          <template id="loadingCountries">-->
+<!--            <tr>-->
+<!--              <td colspan="3">-->
+<!--                <m-loader loading>Loading...</m-loader>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </template>-->
+<!--          <template id="filteredCountries">-->
+<!--            <tr each="filteredCountries" hidden>-->
+<!--              <td></td>-->
+<!--              <td></td>-->
+<!--              <td><img src="" alt="" width="30" height="20" class="bg-gray-1"></td>-->
+<!--            </tr>-->
+<!--          </template>-->
+<!--          <template id="noresults">-->
+<!--            <tr>-->
+<!--              <td colspan="3">-->
+<!--                <div class="txt-center fnt-italic">No matches</div>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </template>-->
+<!--        </tbody>-->
+      </table>
+    </m-box>
+
+    <style>
+      @import "https://unpkg.com/m-@1.6.0/dist/min.css";
+      th[aria-sort] button { cursor: pointer }
+    </style>
+  </template>
+  <script>
+    top.customElements.define('x-countries', class extends top.HTMLElement {
+      #template;
+      /**
+       * Master list of countries.
+       * @typedef {{name: {common: string, official: string}, flags: {alt: string, png: string, svg: string}}} Country
+       * @type {Country[]}
+       */
+      #countries = [];
+      /**  @type {Country[]} */
+      #filteredCountries = [];
+      /**
+       * Filters applied to #filteredCountries.
+       * @type {{query: string, sortOrder: ('ascending'|'descending'|'other'|'none'), sortField: string}}
+       */
+      #filters = { query: '', sortField: 'common', sortOrder: 'ascending' };
+
+      constructor() {
+        super();
+        // Setup template
+        this.#template = document.currentScript.previousElementSibling;
+        this.attachShadow({ mode: 'open' }).appendChild(this.#template.content.cloneNode(true));
+        top.bindTemplateEvents(this);
+        this.refs = top.getTemplateRefs(this.shadowRoot);
+      }
+
+      async connectedCallback() {
+        this.refs.countriesTable.tBodies.loading.hidden = false;
+        const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags');
+        this.#filteredCountries = this.#countries = await res.json();
+        this.refs.countriesTable.tBodies.loading.hidden = true;
+        this.refs.countriesTable.tBodies.results.hidden = false;
+        this.sortCountries()
+      }
+
+      get countries() {
+        return this.#filteredCountries;
+      }
+
+      set countries(val) {
+        this.#filteredCountries = Array.isArray(val) ? val : this.#filteredCountries;
+
+        // Update count
+        this.refs.countriesCount.textContent = this.#filteredCountries.length;
+
+        // Update table
+        [...this.refs.countriesTable.tHead.querySelectorAll('[aria-sort]')].forEach(element => {
+          element.ariaSort = element.firstElementChild.name === this.#filters.sortField ? this.#filters.sortOrder : 'none'
+        });
+
+        if (this.#filteredCountries.length) {
+          this.refs.countriesTable.tBodies.results.innerHTML = this.#filteredCountries.map(country => `
+            <tr>
+              <td>${country.name.common}</td>
+              <td>${country.name.official}</td>
+              <td><img src="${country.flags.png}" alt="${country.flags.alt}" width="30" height="20" class="bg-gray-1"></td>
+            </tr>
+          `).join('');
+
+          this.refs.countriesTable.tBodies.results.hidden = false;
+          this.refs.countriesTable.tBodies.noresults.hidden = true;
+        }
+        else {
+          this.refs.countriesTable.tBodies.results.hidden = true;
+          this.refs.countriesTable.tBodies.noresults.hidden = false;
+        }
+      }
+
+      searchCountries(e) {
+        if (this.#filters.query !== e.target.value.toLowerCase()) {
+          this.#filters.query = e.target.value.toLowerCase();
+          this.countries = !this.#filters.query ? this.#countries : this.#countries.filter(country => {
+            return country.name.common.toLowerCase().includes(this.#filters.query)
+              || country.name.official.toLowerCase().includes(this.#filters.query)
+          })
+        }
+      }
+
+      sortCountries(e) {
+        this.#filters.sortField = e?.target.name || this.#filters.sortField;
+        this.#filters.sortOrder =  e?.target.parentElement.ariaSort === 'ascending' ? 'descending' : 'ascending';
+
+        this.countries = this.countries.sort((a, b) => {
+          return this.#filters.sortOrder === 'ascending'
+            ? a.name[this.#filters.sortField].localeCompare(b.name[this.#filters.sortField])
+            : b.name[this.#filters.sortField].localeCompare(a.name[this.#filters.sortField]);
+        })
+      }
+    })
+  </script>
+</sfwc>
