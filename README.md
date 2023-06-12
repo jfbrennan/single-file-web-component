@@ -4,7 +4,7 @@ A collection of ideas and code for creating Single File Web Components.
 The original SFWC article: https://jordanbrennan.hashnode.dev/single-file-web-componentsmaybe
 
 ## File structure
-SFWC files are named as `<tag-name>.html` and the basic structure is:
+SFWC files are named like `<tag-name>.html` and the basic structure is:
 ```
 <sfwc>
   <template>
@@ -15,9 +15,9 @@ SFWC files are named as `<tag-name>.html` and the basic structure is:
 ```
 
 ## Utils
-`bindTemplateEvents(element)`
+[`bindTemplateEvents(element)`](./bind-template-events.js) Replaces descendents' `onevent` attributes with an event listener of the same type. 
 
-`getTemplateRefs(element)`
+[`getTemplateRefs(element)`](./get-template-refs.js) Finds all elements with id attribute.
 
 ## Examples
 The [country search component](./x-countries.html) demonstrates fetching data and rendering it in a searchable and sortable table.
