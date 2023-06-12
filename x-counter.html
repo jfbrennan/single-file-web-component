@@ -1,0 +1,49 @@
+<!-- The "Single File Web Component" wrapper. -->
+<sfwc>
+  <!-- Component template -->
+  <template>
+    <div id="count-container" class="bg-blue-light">Count <m-badge id="badge" count=""></m-badge></div>
+
+    <!-- Any onevent attributes can be replaced with working event listeners. See connectedCallback below. -->
+    <button onclick="clickHandler">Click me</button>
+
+    <!-- Scoped component styles -->
+    <style>
+      /*  Importing global stylesheets enables them to penetrate shadow DOM. Browsers will used cached stylesheet if already downloaded. */
+      @import "https://unpkg.com/m-@1.6.0/dist/min.css";
+
+      /* :host selects the component element, i.e. <x-counter> not anything in the template. */
+      :host { display: block; border: 1px solid }
+
+      /* Anything else is scoped to this template. */
+      #count-container { color: lightsalmon }
+    </style>
+  </template>
+
+  <!-- Component script -->
+  <script>
+    // Component definition
+    // Note the need for window.top and this.ownerDocument vs. document
+    top.customElements.define('component-b', class extends top.HTMLElement {
+      #template = document.currentScript.prevElementSibling;
+      
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).appendChild(this.#template.content.cloneNode(true));
+      }
+
+      connectedCallback() {
+        // Replaces any onevent attributes in the template with working event listeners.
+        top.bindTemplateEvents(this);
+        
+        // Set up refs (any children with an id)
+        this.refs = top.getTemplateRefs(this);
+      }
+
+      clickHandler(e) {
+        const count = Number(this.refs.badge.getAttribute('count'));
+        this.refs.badge.setAttribute('count', count + 1);
+      }
+    })
+  </script>
+</sfwc>
