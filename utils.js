@@ -24,7 +24,7 @@ export function bindTemplateEvents(element) {
 }
 
 /**
- * Finds all elements with id attribute.
+ * Adds all descendents with an id as direct named properties of the returned object.
  * @param {HTMLElement} element
  * @returns {string|HTMLElement}
  */
