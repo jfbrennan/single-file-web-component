@@ -1,22 +1,24 @@
-<!-- The "Single File Web Component" wrapper. -->
+<!-- The "Single File Web Component" wrapper -->
 <sfwc>
+  
   <!-- Component template -->
   <template>
-    <div id="count-container" class="bg-blue-light">Count <m-badge id="badge" count=""></m-badge></div>
+    <!-- Any elements with an id are available on this.refs, e.g. this.refs.badge. See connectedCallback below. -->
+    <div class="bg-blue-light">Count <m-badge id="badge" count=""></m-badge></div>
 
     <!-- Any onevent attributes can be replaced with working event listeners. See connectedCallback below. -->
     <button onclick="clickHandler">Click me</button>
 
-    <!-- Scoped component styles -->
+    <!-- Component styles -->
     <style>
-      /*  Importing global stylesheets enables them to penetrate shadow DOM. Browsers will used cached stylesheet if already downloaded. */
+      /*  Importing global stylesheets enables them to penetrate shadow DOM. Browsers use cached stylesheet if already downloaded. */
       @import "https://unpkg.com/m-@1.6.0/dist/min.css";
 
       /* :host selects the component element, i.e. <x-counter> not anything in the template. */
       :host { display: block; border: 1px solid }
 
       /* Anything else is scoped to this template. */
-      #count-container { color: lightsalmon }
+      div { color: lightsalmon }
     </style>
   </template>
 
