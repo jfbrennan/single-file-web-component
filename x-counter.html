@@ -25,8 +25,8 @@
   <!-- Component script -->
   <script>
     // Component definition
-    // Note the need for window.top and this.ownerDocument vs. document
-    top.customElements.define('component-b', class extends top.HTMLElement {
+    // Note the need for window.top if this is imported with an <object> element
+    window.top.customElements.define('component-b', class extends top.HTMLElement {
       #template = document.currentScript.prevElementSibling;
       
       constructor() {
@@ -36,10 +36,10 @@
 
       connectedCallback() {
         // Replaces any onevent attributes in the template with working event listeners.
-        top.bindTemplateEvents(this);
+        window.top.bindTemplateEvents(this);
         
         // Set up refs (any children with an id)
-        this.refs = top.getTemplateRefs(this);
+        this.refs = window.top.getTemplateRefs(this);
       }
 
       clickHandler(e) {
