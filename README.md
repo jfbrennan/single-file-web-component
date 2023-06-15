@@ -28,3 +28,10 @@ Note that object elements must be styled with `width: 0; height: 0`; they cannot
 The [counter component](./x-counter.html) demonstrates the basic SFWC concept.
 
 The [country search component](./x-countries.html) demonstrates fetching data and rendering it in a searchable and sortable table.
+
+## Other topics
+**Custom HTML elements and the TAC CSS methodology**
+Some components do not need JavaScript, so what should you do? The status quo is to turn them into React components anyway (or whatever framework you're using) or define them as CSS classes. Neither approach is good. One is over-engineered and coupled to a framework despite having no need for one, and the other introduces a completely different paradigm that lacks the ability to define a sensible API and cannot scale beyond CSS. For these reasons the [TAC methodology](https://jordanbrennan.hashnode.dev/tac-a-new-css-methodology) was created.
+
+**Frameworks that work with Web Components**
+At this point virtually all JavaScript frameworks except React are compatible with Web Components. React 19 is supposed to fix this (six years late). As of June 2023 there is no release date for React 19.
