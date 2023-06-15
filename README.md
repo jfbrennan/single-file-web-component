@@ -13,7 +13,7 @@ SFWC files are named like `<tag-name>.html` and the basic structure is:
   <script></script>
 </template>
 ```
-Importing a SFWC (or a bundle) is done with an object element:
+Importing a SFWC (or a bundle of them) is done with the object element:
 ```html
 <object data="filename.html" type="text/html"></object>
 ```
