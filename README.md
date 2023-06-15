@@ -4,7 +4,7 @@ A collection of ideas and code for creating Single File Web Components.
 The original SFWC article: https://jordanbrennan.hashnode.dev/single-file-web-componentsmaybe
 
 ## File structure
-SFWCs are named like `<tag-name>.html` and the file structure is:
+SFWC filess are named like `<tag-name>.html` and the basic structure is:
 ```html
 <sfwc>
   <template>
