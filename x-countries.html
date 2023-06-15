@@ -33,29 +33,6 @@
             </td>
           </tr>
         </tbody>
-<!--        <tbody>-->
-<!--          <template id="loadingCountries">-->
-<!--            <tr>-->
-<!--              <td colspan="3">-->
-<!--                <m-loader loading>Loading...</m-loader>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--          </template>-->
-<!--          <template id="filteredCountries">-->
-<!--            <tr each="filteredCountries" hidden>-->
-<!--              <td></td>-->
-<!--              <td></td>-->
-<!--              <td><img src="" alt="" width="30" height="20" class="bg-gray-1"></td>-->
-<!--            </tr>-->
-<!--          </template>-->
-<!--          <template id="noresults">-->
-<!--            <tr>-->
-<!--              <td colspan="3">-->
-<!--                <div class="txt-center fnt-italic">No matches</div>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--          </template>-->
-<!--        </tbody>-->
       </table>
     </m-box>
 
@@ -67,14 +44,17 @@
   <script>
     top.customElements.define('x-countries', class extends top.HTMLElement {
       #template;
+      
       /**
        * Master list of countries.
        * @typedef {{name: {common: string, official: string}, flags: {alt: string, png: string, svg: string}}} Country
        * @type {Country[]}
        */
       #countries = [];
+      
       /**  @type {Country[]} */
       #filteredCountries = [];
+      
       /**
        * Filters applied to #filteredCountries.
        * @type {{query: string, sortOrder: ('ascending'|'descending'|'other'|'none'), sortField: string}}
@@ -83,6 +63,7 @@
 
       constructor() {
         super();
+        
         // Setup template
         this.#template = document.currentScript.previousElementSibling;
         this.attachShadow({ mode: 'open' }).appendChild(this.#template.content.cloneNode(true));
@@ -96,7 +77,7 @@
         this.#filteredCountries = this.#countries = await res.json();
         this.refs.countriesTable.tBodies.loading.hidden = true;
         this.refs.countriesTable.tBodies.results.hidden = false;
-        this.sortCountries()
+        this.sortCountries();
       }
 
       get countries() {
