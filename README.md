@@ -31,7 +31,14 @@ The [country search component](./x-countries.html) demonstrates fetching data an
 
 ## Other topics
 **Custom HTML elements and the TAC CSS methodology**
+
 Some components do not need JavaScript, so what should you do? The status quo is to turn them into React (or whatever framework you're using) components anyway. The other common approach is to define them as CSS classes. Neither is good. One is over-engineered and tightly coupled to a framework despite having no need for one, and the other introduces a completely different paradigm that lacks the ability to define a sensible API and can't scale beyond CSS. For these reasons the [TAC methodology](https://jordanbrennan.hashnode.dev/tac-a-new-css-methodology) was created.
 
 **Frameworks that work with Web Components**
+
 At this point virtually all JavaScript frameworks except React are compatible with Web Components. React 19 is supposed to fix this (six years late). As of June 2023 there is no release date for React 19.
+
+**HTML Modules thread**
+
+HTML imports were abandoned. HTML modules are the potential solution, but [the thread is 6 years old](https://github.com/WICG/webcomponents/issues/645) and there doesn't seem to be a spec advancing.
+
