@@ -17,7 +17,7 @@ Importing a SFWC (or a bundle of them) is done with the object element:
 ```html
 <object data="filename.html" type="text/html"></object>
 ```
-Note that object elements must be styled with `width: 0; height: 0;` they cannot be hidden.
+Note that object elements must be styled with `width: 0; height: 0;`. They cannot be hidden.
 
 ## Utils
 [`bindTemplateEvents(element)`](./bind-template-events.js) Replaces descendents' `onevent` attributes with an event listener of the same type. 
