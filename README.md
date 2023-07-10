@@ -4,7 +4,7 @@ A collection of ideas, hacks, and code for creating Single File Web Components.
 The original SFWC article: https://jordanbrennan.hashnode.dev/single-file-web-componentsmaybe
 
 ## File structure
-SFWC files are named like `<tag-name>.html` and the basic structure is:
+SFWC files are named as `<tag-name>.html` and the basic structure is:
 ```html
 <sfwc>
   <template>
@@ -17,7 +17,7 @@ Importing a SFWC (or a bundle of them) is done with the object element:
 ```html
 <object data="filename.html" type="text/html"></object>
 ```
-Note that object elements must be styled with `width: 0; height: 0`; they cannot be hidden.
+Note that object elements must be styled with `width: 0; height: 0;` they cannot be hidden.
 
 ## Utils
 [`bindTemplateEvents(element)`](./bind-template-events.js) Replaces descendents' `onevent` attributes with an event listener of the same type. 
