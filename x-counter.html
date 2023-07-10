@@ -1,32 +1,32 @@
 <!-- The "Single File Web Component" wrapper -->
 <sfwc>
   
-  <!-- Component template -->
+  <!-- Component's template -->
   <template>
-    <!-- Any elements with an id are available on this.refs, e.g. this.refs.badge. See connectedCallback below. -->
+    
+    <!-- Elements with an id are available on this.refs, e.g. this.refs.badge. See connectedCallback below. -->
     <div class="bg-blue-light">Count <m-badge id="badge" count=""></m-badge></div>
 
-    <!-- Any onevent attributes are replaced with working event listeners. See connectedCallback below. -->
+    <!-- Onevent attributes are replaced with working event listeners. See connectedCallback below. -->
     <button onclick="clickHandler">Click me</button>
 
-    <!-- Component styles -->
+    <!-- Component's styles -->
     <style>
-      /*  Importing global stylesheets enables them to penetrate shadow DOM. Browsers use cached stylesheet if already downloaded. */
+      /*  Importing global stylesheets will penetrate shadow DOM. Browsers use cached file if already downloaded. */
       @import "https://unpkg.com/m-@1.6.0/dist/min.css";
 
-      /* :host selects the component element, i.e. <x-counter> not anything in the template. */
-      :host { display: block; border: 1px solid }
+      /* :host selects the custom element, i.e. <x-counter>, not the template. */
+      :host { display: block }
 
       /* Anything else is scoped to this template. */
       div { color: lightsalmon }
     </style>
   </template>
 
-  <!-- Component script -->
+  <!-- Component's script -->
   <script>
-    // Component definition
     // Note the need for window.top if this is imported with an <object> element
-    window.top.customElements.define('component-b', class extends top.HTMLElement {
+    window.top.customElements.define('x-counter', class extends top.HTMLElement {
       #template = document.currentScript.prevElementSibling;
       
       constructor() {
@@ -35,10 +35,10 @@
       }
 
       connectedCallback() {
-        // Replaces any onevent attributes in the template with working event listeners.
+        // Replaces any onevent attributes in the template with working event listeners. See utils.js.
         window.top.bindTemplateEvents(this);
         
-        // Set up refs (any children with an id)
+        // Set up refs (i.e. any children with an id). See utils.js.
         this.refs = window.top.getTemplateRefs(this);
       }
 
