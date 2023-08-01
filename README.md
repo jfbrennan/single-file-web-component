@@ -20,9 +20,9 @@ Importing a SFWC (or a bundle of them) is done with the object element:
 Note that object elements must be styled with `width: 0; height: 0;`. They cannot be hidden.
 
 ## Utils
-[`bindTemplateEvents(element)`](./bind-template-events.js) Replaces descendents' `onevent` attributes with an event listener of the same type. 
+[`bindTemplateEvents(element)`](./utils.js#L10) Replaces descendents' `onevent` attributes with an event listener of the same type. 
 
-[`getTemplateRefs(element)`](./get-template-refs.js) A Proxy object that finds all descendents with an id and caches them on the returned object.
+[`getTemplateRefs(element)`](./utils.js#L31) A Proxy object that finds all descendents with an id and caches them on the returned object.
 
 ## Examples
 The [counter component](./x-counter.html) demonstrates the basic SFWC concept.
