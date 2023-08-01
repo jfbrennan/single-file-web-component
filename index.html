@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFWC - Single File Web Component</title>
+    <style>
+        @import "https://unpkg.com/m-@1.6.0/dist/min.css";
+
+        object {
+            width: 0;
+            height: 0;
+        }
+    </style>
+    <script type="module" src="utils.js"></script>
+</head>
+
+<body>
+    <object type="text/html" data="x-counter.html"></object>
+    <object type="text/html" data="x-countries.html"></object>
+
+    <h1>SFWC - Single File Web Component</h1>
+
+    <h2>Simple badge</h2>
+    <m-badge count="3"></m-badge>
+
+    <h2>Badge with a counter</h2>
+    <x-counter></x-counter>
+
+    <h2>Countries</h2>
+    <x-countries></x-countries>
+
+</body>
+
+</html>

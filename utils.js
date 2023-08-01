@@ -39,3 +39,6 @@ export function getTemplateRefs(element) {
     }
   })
 }
+
+window.getTemplateRefs = getTemplateRefs;
+window.bindTemplateEvents = bindTemplateEvents;
