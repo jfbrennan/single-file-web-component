@@ -27,7 +27,9 @@
   <script>
     // Note the need for window.top if this is imported with an <object> element
     window.top.customElements.define('x-counter', class extends top.HTMLElement {
-      #template = document.currentScript.prevElementSibling;
+      get #template() {
+        return document.currentScript.previousElementSibling;
+      }
       
       constructor() {
         super();
@@ -39,7 +41,7 @@
         window.top.bindTemplateEvents(this);
         
         // Set up refs (i.e. any children with an id). See utils.js.
-        this.refs = window.top.getTemplateRefs(this);
+        this.refs = window.top.getTemplateRefs(this.shadowRoot);
       }
 
       clickHandler(e) {
