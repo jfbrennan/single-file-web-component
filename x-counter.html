@@ -13,7 +13,7 @@
     <!-- Component's styles -->
     <style>
       /*  Importing global stylesheets will penetrate shadow DOM. Browsers use cached file if already downloaded. */
-      @import "https://unpkg.com/m-@1.6.0/dist/min.css";
+      @import "https://unpkg.com/m-@2.1.0/dist/m-min.css";
 
       /* :host selects the custom element, i.e. <x-counter>, not the template. */
       :host { display: block }
@@ -24,12 +24,12 @@
   </template>
 
   <!-- Component's script -->
-  <script>
+  <script type="module">
+    import {getTemplateRefs, bindTemplateEvents} from "./utils.js";
+
     // Note the need for window.top if this is imported with an <object> element
     window.top.customElements.define('x-counter', class extends top.HTMLElement {
-      get #template() {
-        return document.currentScript.previousElementSibling;
-      }
+      #template = document.querySelector('template')
       
       constructor() {
         super();
@@ -38,10 +38,10 @@
 
       connectedCallback() {
         // Replaces any onevent attributes in the template with working event listeners. See utils.js.
-        window.top.bindTemplateEvents(this);
+        bindTemplateEvents(this);
         
         // Set up refs (i.e. any children with an id). See utils.js.
-        this.refs = window.top.getTemplateRefs(this.shadowRoot);
+        this.refs = getTemplateRefs(this.shadowRoot);
       }
 
       clickHandler(e) {

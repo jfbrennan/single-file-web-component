@@ -1,0 +1,77 @@
+<sfwc>
+  <template>
+    <style>
+      x-verticaltabs {
+        --gray-mid: #9D9D9D;
+        --gray-dark: #3E3E3E;
+        --border: #F0F0F0
+      }
+
+      x-verticaltabs nav {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border);
+        padding-right: 16px;
+        gap: 8px;
+      }
+
+      x-verticaltabs nav > a,
+      x-verticaltabs nav > a:visited {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font-weight: 600;
+        color: var(--gray-mid);
+        border-radius: 8px;
+        padding: 12px;
+        gap: 8px;
+      }
+
+      x-verticaltabs nav > a m-icon {
+        font-size: 20px;
+      }
+
+      x-verticaltabs nav > a[aria-selected=true],
+      x-verticaltabs nav > a:hover {
+        text-decoration: none;
+        color: white;
+        background-color: var(--gray-dark);
+      }
+    </style>
+  </template>
+  <script>
+    // **NOTICE** Use `window.top` (or just `top`) to access the main window if included via <object>.
+    top.customElements.define('x-verticaltabs', class extends top.HTMLElement {
+      #template = document.currentScript.previousElementSibling;
+
+      constructor() {
+        super();
+        this.appendChild(this.#template.content.cloneNode(true));
+      }
+
+      async connectedCallback() {
+        this.tabs = Array.from(this.querySelectorAll(`nav > a`));
+
+        // Determine the initial selected tab
+        const initialTab = this.tabs.find(tab => tab.hash === top.location.hash) || this.tabs[0];
+        initialTab.ariaSelected = true;
+
+        // Set up a click handler for each tab (i.e. link)
+        this.querySelectorAll(`nav > a`).forEach(tab => tab.addEventListener('click', e => this.selectTab(e)));
+      }
+
+      selectTab(e) {
+        e.preventDefault();
+
+        // Manually update location hash since we have to stop link in order to animate the scroll
+        top.history.replaceState(null, '', e.currentTarget.hash);
+
+        // Scroll to fragment
+        top.document.querySelector(e.currentTarget.hash).scrollIntoView({behavior: 'smooth'});
+
+        // Update selected tab
+        this.tabs.forEach(tab => tab.ariaSelected = tab === e.currentTarget)
+      }
+    })
+  </script>
+</sfwc>

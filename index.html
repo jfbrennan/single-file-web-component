@@ -1,36 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFWC - Single File Web Component</title>
-    <style>
-        @import "https://unpkg.com/m-@1.6.0/dist/min.css";
-
-        object {
-            width: 0;
-            height: 0;
-        }
-    </style>
-    <script type="module" src="utils.js"></script>
+  <title>SFWC - Single File Web Component</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/m-@2.1.0/dist/m-min.css" rel="stylesheet">
+  <style>
+    object {
+      width: 0;
+      height: 0;
+    }
+  </style>
 </head>
 
 <body>
-    <object type="text/html" data="x-counter.html"></object>
-    <object type="text/html" data="x-countries.html"></object>
+  <object type="text/html" data="x-counter.html"></object>
+  <object type="text/html" data="x-countries.html"></object>
+  <object type="text/html" data="x-verticaltabs.html"></object>
 
+  <m-container>
     <h1>SFWC - Single File Web Component</h1>
-
-    <h2>Simple badge</h2>
-    <m-badge count="3"></m-badge>
-
-    <h2>Badge with a counter</h2>
+    <hr>
+    <h2>Counter Demo</h2>
+    <p>Basic counter</p>
     <x-counter></x-counter>
-
-    <h2>Countries</h2>
-    <x-countries></x-countries>
-
+    <h2>Countries Demo</h2>
+    <p>Fetch data from API, display it in a sortable table</p>
+    <x-countries class="overflow-auto" style="height: 300px"></x-countries>
+    <h2>Vertical Tabs Demo</h2>
+    <p>Inspired by this post from <a href="https://twitter.com/davidm_ml/status/1694302014480531932?s=20">@davidm_ml</a></p>
+    <m-container class="flex">
+      <x-verticaltabs>
+        <nav>
+          <a href="#tab1">
+            <m-icon name="graph"></m-icon>
+            Analytics
+          </a>
+          <a href="#tab2">
+            <m-icon name="chart"></m-icon>
+            Reports
+          </a>
+          <a href="#tab3">
+            <m-icon name="trophy"></m-icon>
+            Performance
+          </a>
+          <a href="#tab4">
+            <m-icon name="wallet"></m-icon>
+            Funds
+          </a>
+        </nav>
+      </x-verticaltabs>
+      <div class="overflow-auto mar-l-md" style="height: 300px">
+        <section id="tab1">
+          <h2>Analytics</h2>
+          <p>Investment analytics involves the use of data, statistical techniques, and financial models to evaluate and optimize investment decisions. It's a discipline that aids investors in understanding potential risks and returns associated with various investment choices. Investment analytics can range from basic data analysis to complex quantitative models and can be applied to various asset classes.</p>
+        </section>
+        <section id="tab2">
+          <h2>Reports</h2>
+          <p>Investment reports provide detailed information about the status, performance, and other relevant aspects of an investment or portfolio. They can be generated for individual investors or institutional investors and are typically used to assess the health, progress, and potential future trajectory of investments.</p>
+        </section>
+        <section id="tab3">
+          <h2>Performance</h2>
+          <p>Investment performance refers to the returns generated on an investment relative to the amount of money invested. It's a way to measure and evaluate the growth or decline of an investment over a specific period, often compared to benchmarks or other standards to determine its relative success.</p>
+        </section>
+        <section id="tab4">
+          <h2>Funds</h2>
+          <p>Investment funds are pooled collections of money from multiple investors that are managed collectively by professionals or on behalf of the investors. The main objective of these funds is to provide both individual and institutional investors access to a wider range of securities than they might be able to access individually. By doing so, they can achieve diversification, professional management, and economies of scale in investment.</p>
+        </section>
+      </div>
+    </m-container>
+  </m-container>
 </body>
-
 </html>

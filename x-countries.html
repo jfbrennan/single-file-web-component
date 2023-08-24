@@ -38,12 +38,15 @@
 
     <style>
       @import "https://unpkg.com/m-@1.6.0/dist/min.css";
+      :host { display: block }
       th[aria-sort] button { cursor: pointer }
     </style>
   </template>
-  <script>
+  <script type="module">
+    import {getTemplateRefs, bindTemplateEvents} from './utils.js';
+
     top.customElements.define('x-countries', class extends top.HTMLElement {
-      #template;
+      #template = document.querySelector('template');
       
       /**
        * Master list of countries.
@@ -65,10 +68,9 @@
         super();
         
         // Setup template
-        this.#template = document.currentScript.previousElementSibling;
         this.attachShadow({ mode: 'open' }).appendChild(this.#template.content.cloneNode(true));
-        top.bindTemplateEvents(this);
-        this.refs = top.getTemplateRefs(this.shadowRoot);
+        bindTemplateEvents(this);
+        this.refs = getTemplateRefs(this.shadowRoot);
       }
 
       async connectedCallback() {
