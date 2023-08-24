@@ -50,7 +50,7 @@
       }
 
       async connectedCallback() {
-        this.tabs = Array.from(this.querySelectorAll('nav > a'));
+        this.tabs = [...this.querySelectorAll('nav > a')];
 
         // Determine the initial selected tab
         const initialTab = this.tabs.find(tab => tab.hash === top.location.hash) || this.tabs[0];
