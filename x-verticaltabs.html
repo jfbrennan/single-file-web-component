@@ -42,7 +42,7 @@
   <script>
     // **NOTICE** Use `window.top` (or just `top`) to access the main window if included via <object>.
     top.customElements.define('x-verticaltabs', class extends top.HTMLElement {
-      #template = document.currentScript.previousElementSibling;
+      #template = document.querySelector('template');
 
       constructor() {
         super();
@@ -50,14 +50,14 @@
       }
 
       async connectedCallback() {
-        this.tabs = Array.from(this.querySelectorAll(`nav > a`));
+        this.tabs = Array.from(this.querySelectorAll('nav > a'));
 
         // Determine the initial selected tab
         const initialTab = this.tabs.find(tab => tab.hash === top.location.hash) || this.tabs[0];
         initialTab.ariaSelected = true;
 
         // Set up a click handler for each tab (i.e. link)
-        this.querySelectorAll(`nav > a`).forEach(tab => tab.addEventListener('click', e => this.selectTab(e)));
+        this.tabs.forEach(tab => tab.addEventListener('click', e => this.selectTab(e)));
       }
 
       selectTab(e) {
@@ -67,7 +67,7 @@
         top.history.replaceState(null, '', e.currentTarget.hash);
 
         // Scroll to fragment
-        top.document.querySelector(e.currentTarget.hash).scrollIntoView({behavior: 'smooth'});
+        top.document.querySelector(e.currentTarget.hash)?.scrollIntoView({behavior: 'smooth'});
 
         // Update selected tab
         this.tabs.forEach(tab => tab.ariaSelected = tab === e.currentTarget)
