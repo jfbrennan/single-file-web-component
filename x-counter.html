@@ -29,7 +29,11 @@
 
     // Note the need for window.top if this is imported with an <object> element
     window.top.customElements.define('x-counter', class extends top.HTMLElement {
-      #template = document.querySelector('template')
+      // this.isConnected is not very helpful, CE needs this flag
+      #initialized = false;
+
+      // or document.currentScript.previousElementSibling
+      #template = document.querySelector('template');
       
       constructor() {
         super();
@@ -37,11 +41,15 @@
       }
 
       connectedCallback() {
-        // Replaces any onevent attributes in the template with working event listeners. See utils.js.
-        bindTemplateEvents(this);
+        if (!this.#initialized) {
+          // Replaces any onevent attributes in the template with working event listeners. See utils.js.
+          bindTemplateEvents(this);
         
-        // Set up refs (i.e. any children with an id). See utils.js.
-        this.refs = getTemplateRefs(this.shadowRoot);
+          // Set up refs (i.e. any children with an id). See utils.js.
+          this.refs = getTemplateRefs(this.shadowRoot);
+          
+          this.#initialized = true;
+        }
       }
 
       clickHandler(e) {
