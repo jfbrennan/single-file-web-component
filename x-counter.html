@@ -45,7 +45,7 @@
           // Replaces any onevent attributes in the template with working event listeners. See utils.js.
           bindTemplateEvents(this);
         
-          // Set up refs (i.e. any children with an id). See utils.js.
+          // Set up refs, i.e. children with an id. Ids are safe because of shadow DOM. See utils.js.
           this.refs = getTemplateRefs(this.shadowRoot);
           
           this.#initialized = true;
