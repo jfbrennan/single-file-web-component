@@ -28,7 +28,7 @@
     import {getTemplateRefs, bindTemplateEvents} from "./utils.js";
 
     // Note the need for window.top if this is imported with an <object> element
-    window.top.customElements.define('x-counter', class extends top.HTMLElement {
+    window.top.customElements.define('x-counter', class extends HTMLElement {
       // this.isConnected is not very helpful, CE needs this flag
       #initialized = false;
 
