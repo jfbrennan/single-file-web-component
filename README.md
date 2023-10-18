@@ -1,5 +1,5 @@
 # Single File Web Component
-A collection of ideas, hacks, and code for creating Single File Web Components.
+Searching for ways to create vanilla single-file Web Components...
 
 The original SFWC article: https://jordanbrennan.hashnode.dev/single-file-web-componentsmaybe
 
