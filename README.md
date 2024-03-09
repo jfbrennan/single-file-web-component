@@ -11,7 +11,7 @@ SFWC files are named as `<tag-name>.html` and the basic structure is:
     <style></style>
   </template>
   <script></script>
-</template>
+</sfwc>
 ```
 Importing a SFWC (or a bundle of them) is done with the object element:
 ```html
